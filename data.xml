@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Manager>
+  <hotspot>
+    <longtitude>45.525876</longtitude>
+    <latitude>-73.559438</latitude>
+    <weight>-73.559438</weight>
+  </hotspot>
+  <hotspot>
+    <longtitude>45.490064</longtitude>
+    <latitude>-73.585781</latitude>
+    <weight>-73.585781</weight>
+  </hotspot>
+</Manager>
