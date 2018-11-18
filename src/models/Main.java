@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-
+import java.util.concurrent.TimeUnit;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -38,30 +38,58 @@ public class Main {
 		
 		try {
 			//add hotspot
+				System.out.println("reading collision spots data.....");
 				readHotspotFile(hotspotFilename, manager);
+				progressBar(2*4);
 				
 				//add routes!
+				System.out.println("reading all bike routes data.....");
 				readRouteFile(routesFilename, manager);
-			
+				progressBar(4*4);
 			//add users
 			for (int i = 0; i < 4; i++) {
+				System.out.println("reading user: "+userName[i]+" route data.....");
+				progressBar(1);
 				readUserFile(userFilename[i], manager, userName[i]);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		User u = manager.getUser(3);
 		
-	
+		
+		System.out.println("calculating user's danger profiles.....");
+		progressBar(1);
 		for(User u1 :manager.getUsers()) {
-			System.out.println("Name: "+u1.getName()+" dangerIndex: "+manager.showUserIndex(u1));
+			System.out.println("Name: "+u1.getName()+" ----> DangerIndex: "+manager.showUserIndex(u1));
+		}System.out.println();
+		System.out.print("User: thomas is the terrorist!");
+		
+		
+	}	
+	public static void progressBar (long speed) {
+		System.out.println("");
+		System.out.print("|");
+		speed *= 10; 
+		for(int i = 0; i < 50 ; i++) {
+			
+				System.out.print("-");
+			
+			try {
+				TimeUnit.MILLISECONDS.sleep(speed);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		System.out.println("|100%");
+		System.out.println("");
+		
 		
 	}	
 	public static Route findRoutebyName (String name, Manager manager) { //return null if didn't find one
 		for(Route r: manager.getRoutes()) {
-			//System.out.println("Route: "+r.getName()+" name: "+name);
+			
 			if(r.getName().equals(name)) {
 				return r;
 			}
